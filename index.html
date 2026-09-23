@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Result Countdown</title>
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  background: #080808;
+  color: white;
+}
+.box { padding: 25px; }
+.warning {
+  font-size: 14px;
+  letter-spacing: 3px;
+  opacity: .6;
+  margin-bottom: 20px;
+}
+h1 {
+  font-size: 30px;
+  margin-bottom: 30px;
+}
+#timer {
+  font-size: 45px;
+  font-weight: bold;
+}
+.small {
+  margin-top: 20px;
+  opacity: .5;
+}
+</style>
+</head>
+
+<body>
+<div class="box">
+  <div class="warning">⚠ RESULT COUNTDOWN ⚠</div>
+  <h1>Time remaining until 10:00</h1>
+  <div id="timer">Loading...</div>
+  <div class="small">Time is going down... 👀</div>
+</div>
+
+<script>
+function countdown() {
+  const now = new Date();
+  const target = new Date();
+
+  target.setHours(10, 0, 0, 0);
+
+  if (now >= target) {
+    target.setDate(target.getDate() + 1);
+  }
+
+  const difference = target - now;
+  const minutes = Math.ceil(difference / 60000);
+
+  const hours = Math.floor(minutes / 60);
+  const mins = minutes % 60;
+
+  if (hours > 0) {
+    document.getElementById("timer").innerText =
+      hours + " hours " +
+      String(mins).padStart(2, "0") +
+      " minutes remaining";
+  } else {
+    document.getElementById("timer").innerText =
+      mins + " minutes remaining";
+  }
+}
+
+countdown();
+setInterval(countdown, 1000);
+</script>
+
+</body>
+</html>
